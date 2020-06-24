@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AndiSoft.EasyHttp</name>
+    </assembly>
+    <members>
+        <member name="M:AndiSoft.EasyHttp.BaseHttpClient.#ctor(System.Net.WebProxy,AndiSoft.EasyHttp.SecurityProtocolEnum)">
+            <summary>
+            Creates the client to make requests. The default Content-Type is 'application/json', wich can be changed using the AddHeaders method.
+            </summary>
+            <param name="proxy">Optional proxy for requests. Default is null.</param>
+            <param name="protocolType">Security Protocol tu be used in the request. Default is TLS12</param>
+        </member>
+        <member name="M:AndiSoft.EasyHttp.BaseHttpClient.AddHeader(System.String,System.String)">
+            <summary>
+            Adds header to the request
+            </summary>
+            <param name="key">Header key.</param>
+            <param name="value">Header value.</param>
+        </member>
+        <member name="M:AndiSoft.EasyHttp.BaseHttpClient.AddHeaders(System.Net.Http.Headers.HttpRequestHeaders)">
+            <summary>
+            Adds headers to the request
+            </summary>
+            <param name="headers">Headers to add.</param>
+        </member>
+        <member name="M:AndiSoft.EasyHttp.BaseHttpClient.ClearHeadders">
+            <summary>
+            Remove all headers.
+            </summary>
+        </member>
+        <member name="T:AndiSoft.EasyHttp.EasyHttpClient">
+            <summary>
+            Class with some HTTP abstractions. It can read response content and convert it to specified objects.
+            </summary>
+        </member>
+        <member name="M:AndiSoft.EasyHttp.EasyHttpClient.#ctor(System.Net.WebProxy)">
+            <summary>
+            Creates the client to make requests. The default Content-Type is 'application/json', wich can be changed using the AddHeaders method.
+            </summary>
+            <param name="proxy">Optional proxy for requests. Default is null.</param>
+        </member>
+        <member name="M:AndiSoft.EasyHttp.EasyHttpClient.#ctor(AndiSoft.EasyHttp.SecurityProtocolEnum,System.Net.WebProxy)">
+            <summary>
+            Creates the client to make requests. The default Content-Type is 'application/json', wich can be changed using the AddHeaders method.
+            </summary>
+            <param name="securityProtocol">Security Protocol tu be used in the request. Default is TLS 1.2 and 1.1.</param>
+            <param name="proxy">Optional proxy for requests. Default is null.</param>
+        </member>
+        <member name="M:AndiSoft.EasyHttp.EasyHttpClient.Get(System.String)">
+            <summary>
+            Makes GET request to the specified URL.
+            </summary>
+            <param name="url"></param>
+            <returns>HttpResponseMessage</returns>
+        </member>
+        <member name="M:AndiSoft.EasyHttp.EasyHttpClient.Get``1(System.String)">
+            <summary>
+            Makes GET request to the specified URL and converts response to the specified type.
+            </summary>
+            <typeparam name="T">Type of the desired response.</typeparam>
+            <param name="url"></param>
+            <returns>Specified type. Will return an empty object on failure.</returns>
+        </member>
+        <member name="M:AndiSoft.EasyHttp.EasyHttpClient.Post(System.String,System.String,System.String)">
+            <summary>
+            Makes POST request to the specified URL.
+            </summary>
+            <param name="url"></param>
+            <param name="body">POST content.</param>
+            <param name="contentType">Content type. Default is 'application/json'.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AndiSoft.EasyHttp.EasyHttpClient.PostJson(System.String,System.Object)">
+            <summary>
+            Converts body object to json and makes POST request to the specified URL.
+            </summary>
+            <param name="url"></param>
+            <param name="body">POST content.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AndiSoft.EasyHttp.EasyHttpClient.PostJson``1(System.String,System.Object)">
+            <summary>
+            Converts body object to json and makes POST request to the specified URL.
+            </summary>
+            <param name="url"></param>
+            <param name="body">POST object content.</param>
+            <returns>Response with parsed object in Result</returns>
+        </member>
+        <member name="M:AndiSoft.EasyHttp.EasyHttpClient.Put(System.String,System.String,System.String)">
+            <summary>
+            Makes PUT request to the specified URL.
+            </summary>
+            <param name="url"></param>
+            <param name="body">PUT content.</param>
+            <param name="contentType">Content type. Default is 'application/json'.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AndiSoft.EasyHttp.EasyHttpClient.PutJson(System.String,System.Object)">
+            <summary>
+            Converts body object to json and makes PUT request to the specified URL.
+            </summary>
+            <param name="url"></param>
+            <param name="body">POST content.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AndiSoft.EasyHttp.EasyHttpClient.PutJson``1(System.String,System.Object)">
+            <summary>
+            Converts body object to json and makes PUT request to the specified URL.
+            </summary>
+            <param name="url"></param>
+            <param name="body">PUT content.</param>
+            <returns>Response with parsed object in Result</returns>
+        </member>
+        <member name="M:AndiSoft.EasyHttp.EasyHttpClient.Delete(System.String)">
+            <summary>
+            Makes DELETE request to the specified URL.
+            </summary>
+            <param name="url"></param>
+            <returns>HttpResponseMessage</returns>
+        </member>
+        <member name="T:AndiSoft.EasyHttp.EasyHttpResponse">
+            <summary>
+            Inherits HttpResponseMessage.
+            </summary>
+        </member>
+        <member name="P:AndiSoft.EasyHttp.EasyHttpResponse.StringResult">
+            <summary>
+            Request result as string.
+            </summary>
+        </member>
+        <member name="M:AndiSoft.EasyHttp.EasyHttpResponse.GetStatusString">
+            <summary>
+            Returns status code and reason phrase formatted string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AndiSoft.EasyHttp.EasyHttpResponse`1">
+            <summary>
+            HttpResponseMessage with parsed object inside. If parse fails, check the ParseException attribute.
+            </summary>
+            <typeparam name="T">Desired ObjectResult type.</typeparam>
+        </member>
+        <member name="P:AndiSoft.EasyHttp.EasyHttpResponse`1.ParseSuccess">
+            <summary>
+            Parse status.
+            </summary>
+        </member>
+        <member name="P:AndiSoft.EasyHttp.EasyHttpResponse`1.ParseException">
+            <summary>
+            Parse exception, in case o failure.
+            </summary>
+        </member>
+        <member name="P:AndiSoft.EasyHttp.EasyHttpResponse`1.ObjectResult">
+            <summary>
+            Specified type object result.
+            </summary>
+        </member>
+    </members>
+</doc>
