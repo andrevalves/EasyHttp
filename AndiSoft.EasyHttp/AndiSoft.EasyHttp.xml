@@ -156,5 +156,15 @@
             Specified type object result.
             </summary>
         </member>
+        <member name="F:AndiSoft.EasyHttp.SecurityProtocolEnum.Default">
+            <summary>
+            Accepts TLS, TLS1.1 and TLS1.2 certifications
+            </summary>
+        </member>
+        <member name="F:AndiSoft.EasyHttp.SecurityProtocolEnum.BypassSSL">
+            <summary>
+            Bypass SSL certification
+            </summary>
+        </member>
     </members>
 </doc>

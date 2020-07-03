@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;netstandard2.1;netstandard2.0;net451;net461;net462;net47</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;netstandard2.1;</TargetFrameworks>
     <Authors>André Alves</Authors>
     <Description>An easy client for http requests. Useful for consuming and integrating APIs.
 This client has the ability to serialize JSON reponses into a given object.</Description>
@@ -16,6 +16,11 @@ This client has the ability to serialize JSON reponses into a given object.</Des
     <RepositoryType>Git</RepositoryType>
     <DocumentationFile>AndiSoft.EasyHttp.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="AndiSoft.EasyHttp.nuspec" />
+    <None Remove="AndiSoft.EasyHttp.xml" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />

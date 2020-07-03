@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Security;
 
 namespace AndiSoft.EasyHttp
 {
@@ -29,12 +30,22 @@ namespace AndiSoft.EasyHttp
                 Proxy = proxy
             };
 
+            if (protocolType == SecurityProtocolEnum.BypassSSL)
+            {
+                httpClientHandler.ServerCertificateCustomValidationCallback =
+                    (sender, cert, chain, sslPolicyErrors) => true;
+            }
+
             EasyClient = new HttpClient(httpClientHandler);
             EasyClient.DefaultRequestHeaders.Accept.Clear();
             EasyClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             switch (protocolType)
             {
+
+                case SecurityProtocolEnum.BypassSSL:
+                    //ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, errors) => true;
+                    break;
                 case SecurityProtocolEnum.SSL3:
                     ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
                     break;
@@ -47,6 +58,9 @@ namespace AndiSoft.EasyHttp
                 case SecurityProtocolEnum.TLS12:
                     ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                     break;
+                case SecurityProtocolEnum.TLS13:
+                    break;
+                case SecurityProtocolEnum.Default:
                 default:
                     ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
                     break;
