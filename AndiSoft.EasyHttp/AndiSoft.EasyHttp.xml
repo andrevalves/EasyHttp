@@ -6,10 +6,10 @@
     <members>
         <member name="M:AndiSoft.EasyHttp.BaseHttpClient.#ctor(System.Net.WebProxy,AndiSoft.EasyHttp.SecurityProtocolEnum)">
             <summary>
-            Creates the client to make requests. The default Content-Type is 'application/json', wich can be changed using the AddHeaders method.
+            Creates the client to make requests. The default Content-Type is 'application/json', which can be changed using the AddHeaders method.
             </summary>
             <param name="proxy">Optional proxy for requests. Default is null.</param>
-            <param name="protocolType">Security Protocol tu be used in the request. Default is TLS12</param>
+            <param name="protocolType">Security Protocol to be used in the request. Default is TLS12</param>
         </member>
         <member name="M:AndiSoft.EasyHttp.BaseHttpClient.AddHeader(System.String,System.String)">
             <summary>
@@ -44,7 +44,7 @@
             <summary>
             Creates the client to make requests. The default Content-Type is 'application/json', wich can be changed using the AddHeaders method.
             </summary>
-            <param name="securityProtocol">Security Protocol tu be used in the request. Default is TLS 1.2 and 1.1.</param>
+            <param name="securityProtocol">Security Protocol to be used in the request. Default is TLS 1.2 and 1.1.</param>
             <param name="proxy">Optional proxy for requests. Default is null.</param>
         </member>
         <member name="M:AndiSoft.EasyHttp.EasyHttpClient.Get(System.String)">

@@ -26,7 +26,7 @@ namespace AndiSoft.EasyHttp
         /// <summary>
         /// Creates the client to make requests. The default Content-Type is 'application/json', wich can be changed using the AddHeaders method.
         /// </summary>
-        /// <param name="securityProtocol">Security Protocol tu be used in the request. Default is TLS 1.2 and 1.1.</param>
+        /// <param name="securityProtocol">Security Protocol to be used in the request. Default is TLS 1.2 and 1.1.</param>
         /// <param name="proxy">Optional proxy for requests. Default is null.</param>
         public EasyHttpClient(SecurityProtocolEnum securityProtocol, WebProxy proxy = null) : base(proxy, securityProtocol)
         {

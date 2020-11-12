@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Net.Security;
 
 namespace AndiSoft.EasyHttp
 {
@@ -12,10 +11,10 @@ namespace AndiSoft.EasyHttp
         #region Contructor
 
         /// <summary>
-        /// Creates the client to make requests. The default Content-Type is 'application/json', wich can be changed using the AddHeaders method.
+        /// Creates the client to make requests. The default Content-Type is 'application/json', which can be changed using the AddHeaders method.
         /// </summary>
         /// <param name="proxy">Optional proxy for requests. Default is null.</param>
-        /// <param name="protocolType">Security Protocol tu be used in the request. Default is TLS12</param>
+        /// <param name="protocolType">Security Protocol to be used in the request. Default is TLS12</param>
         protected BaseHttpClient(WebProxy proxy = null, SecurityProtocolEnum protocolType = SecurityProtocolEnum.Default)
         {
             if (proxy == null)
@@ -30,11 +29,13 @@ namespace AndiSoft.EasyHttp
                 Proxy = proxy
             };
 
+            #if !NET451
             if (protocolType == SecurityProtocolEnum.BypassSSL)
             {
                 httpClientHandler.ServerCertificateCustomValidationCallback =
                     (sender, cert, chain, sslPolicyErrors) => true;
             }
+            #endif
 
             EasyClient = new HttpClient(httpClientHandler);
             EasyClient.DefaultRequestHeaders.Accept.Clear();
