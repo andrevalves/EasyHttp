@@ -109,7 +109,7 @@ namespace AndiSoft.EasyHttp
         /// <summary>
         /// Remove all headers.
         /// </summary>
-        public void ClearHeadders()
+        public void ClearHeaders()
         {
             EasyClient.DefaultRequestHeaders.Clear();
         }

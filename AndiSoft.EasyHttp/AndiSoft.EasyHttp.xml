@@ -24,7 +24,7 @@
             </summary>
             <param name="headers">Headers to add.</param>
         </member>
-        <member name="M:AndiSoft.EasyHttp.BaseHttpClient.ClearHeadders">
+        <member name="M:AndiSoft.EasyHttp.BaseHttpClient.ClearHeaders">
             <summary>
             Remove all headers.
             </summary>
@@ -54,7 +54,22 @@
             <param name="url"></param>
             <returns>HttpResponseMessage</returns>
         </member>
+        <member name="M:AndiSoft.EasyHttp.EasyHttpClient.GetAsync(System.String)">
+            <summary>
+            Makes GET request to the specified URL.
+            </summary>
+            <param name="url"></param>
+            <returns>HttpResponseMessage</returns>
+        </member>
         <member name="M:AndiSoft.EasyHttp.EasyHttpClient.Get``1(System.String)">
+            <summary>
+            Makes GET request to the specified URL and converts response to the specified type.
+            </summary>
+            <typeparam name="T">Type of the desired response.</typeparam>
+            <param name="url"></param>
+            <returns>Specified type. Will return an empty object on failure.</returns>
+        </member>
+        <member name="M:AndiSoft.EasyHttp.EasyHttpClient.GetAsync``1(System.String)">
             <summary>
             Makes GET request to the specified URL and converts response to the specified type.
             </summary>
@@ -71,6 +86,15 @@
             <param name="contentType">Content type. Default is 'application/json'.</param>
             <returns></returns>
         </member>
+        <member name="M:AndiSoft.EasyHttp.EasyHttpClient.PostAsync(System.String,System.String,System.String)">
+            <summary>
+            Makes POST request to the specified URL.
+            </summary>
+            <param name="url"></param>
+            <param name="body">POST content.</param>
+            <param name="contentType">Content type. Default is 'application/json'.</param>
+            <returns></returns>
+        </member>
         <member name="M:AndiSoft.EasyHttp.EasyHttpClient.PostJson(System.String,System.Object)">
             <summary>
             Converts body object to json and makes POST request to the specified URL.
@@ -79,7 +103,23 @@
             <param name="body">POST content.</param>
             <returns></returns>
         </member>
+        <member name="M:AndiSoft.EasyHttp.EasyHttpClient.PostJsonAsync(System.String,System.Object)">
+            <summary>
+            Converts body object to json and makes POST request to the specified URL.
+            </summary>
+            <param name="url"></param>
+            <param name="body">POST content.</param>
+            <returns></returns>
+        </member>
         <member name="M:AndiSoft.EasyHttp.EasyHttpClient.PostJson``1(System.String,System.Object)">
+            <summary>
+            Converts body object to json and makes POST request to the specified URL.
+            </summary>
+            <param name="url"></param>
+            <param name="body">POST object content.</param>
+            <returns>Response with parsed object in Result</returns>
+        </member>
+        <member name="M:AndiSoft.EasyHttp.EasyHttpClient.PostJsonAsync``1(System.String,System.Object)">
             <summary>
             Converts body object to json and makes POST request to the specified URL.
             </summary>
@@ -96,7 +136,24 @@
             <param name="contentType">Content type. Default is 'application/json'.</param>
             <returns></returns>
         </member>
+        <member name="M:AndiSoft.EasyHttp.EasyHttpClient.PutAsync(System.String,System.String,System.String)">
+            <summary>
+            Makes PUT request to the specified URL.
+            </summary>
+            <param name="url"></param>
+            <param name="body">PUT content.</param>
+            <param name="contentType">Content type. Default is 'application/json'.</param>
+            <returns></returns>
+        </member>
         <member name="M:AndiSoft.EasyHttp.EasyHttpClient.PutJson(System.String,System.Object)">
+            <summary>
+            Converts body object to json and makes PUT request to the specified URL.
+            </summary>
+            <param name="url"></param>
+            <param name="body">POST content.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AndiSoft.EasyHttp.EasyHttpClient.PutJsonAsync(System.String,System.Object)">
             <summary>
             Converts body object to json and makes PUT request to the specified URL.
             </summary>
@@ -112,7 +169,22 @@
             <param name="body">PUT content.</param>
             <returns>Response with parsed object in Result</returns>
         </member>
+        <member name="M:AndiSoft.EasyHttp.EasyHttpClient.PutJsonAsync``1(System.String,System.Object)">
+            <summary>
+            Converts body object to json and makes PUT request to the specified URL.
+            </summary>
+            <param name="url"></param>
+            <param name="body">PUT content.</param>
+            <returns>Response with parsed object in Result</returns>
+        </member>
         <member name="M:AndiSoft.EasyHttp.EasyHttpClient.Delete(System.String)">
+            <summary>
+            Makes DELETE request to the specified URL.
+            </summary>
+            <param name="url"></param>
+            <returns>HttpResponseMessage</returns>
+        </member>
+        <member name="M:AndiSoft.EasyHttp.EasyHttpClient.DeleteAsync(System.String)">
             <summary>
             Makes DELETE request to the specified URL.
             </summary>

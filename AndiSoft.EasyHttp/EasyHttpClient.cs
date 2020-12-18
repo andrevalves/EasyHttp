@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -44,7 +45,18 @@ namespace AndiSoft.EasyHttp
         /// <returns>HttpResponseMessage</returns>
         public EasyHttpResponse Get(string url)
         {
-            return new EasyHttpResponse(EasyClient.GetAsync(url, HttpCompletionOption.ResponseContentRead).GetAwaiter().GetResult());
+            return GetAsync(url).Result;
+        }
+
+        /// <summary>
+        /// Makes GET request to the specified URL.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns>HttpResponseMessage</returns>
+        public async Task<EasyHttpResponse> GetAsync(string url)
+        {
+            var result = await EasyClient.GetAsync(url, HttpCompletionOption.ResponseContentRead);
+            return new EasyHttpResponse(result);
         }
 
         /// <summary>
@@ -56,7 +68,20 @@ namespace AndiSoft.EasyHttp
         public EasyHttpResponse<T> Get<T>(string url)
         {
             var result = Get(url);
+            var response = new EasyHttpResponse<T>(result);
 
+            return response;
+        }
+
+        /// <summary>
+        /// Makes GET request to the specified URL and converts response to the specified type.
+        /// </summary>
+        /// <typeparam name="T">Type of the desired response.</typeparam>
+        /// <param name="url"></param>
+        /// <returns>Specified type. Will return an empty object on failure.</returns>
+        public async Task<EasyHttpResponse<T>> GetAsync<T>(string url)
+        {
+            var result = await GetAsync(url);
             var response = new EasyHttpResponse<T>(result);
 
             return response;
@@ -75,6 +100,18 @@ namespace AndiSoft.EasyHttp
         /// <returns></returns>
         public EasyHttpResponse Post(string url, string body, string contentType = null)
         {
+            return PostAsync(url, body, contentType).Result;
+        }
+
+        /// <summary>
+        /// Makes POST request to the specified URL.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="body">POST content.</param>
+        /// <param name="contentType">Content type. Default is 'application/json'.</param>
+        /// <returns></returns>
+        public async Task<EasyHttpResponse> PostAsync(string url, string body, string contentType = null)
+        {
             if (string.IsNullOrWhiteSpace(contentType))
                 contentType = "application/json";
 
@@ -82,8 +119,7 @@ namespace AndiSoft.EasyHttp
             httpContent.Headers.Clear();
             httpContent.Headers.Add("content-type", contentType);
 
-            return new EasyHttpResponse(EasyClient.PostAsync(url, httpContent).GetAwaiter().GetResult());
-            
+            return new EasyHttpResponse(await EasyClient.PostAsync(url, httpContent));
         }
 
         /// <summary>
@@ -102,6 +138,18 @@ namespace AndiSoft.EasyHttp
         /// Converts body object to json and makes POST request to the specified URL.
         /// </summary>
         /// <param name="url"></param>
+        /// <param name="body">POST content.</param>
+        /// <returns></returns>
+        public async Task<EasyHttpResponse> PostJsonAsync(string url, object body)
+        {
+            var content = body is string ? body.ToString() : JsonConvert.SerializeObject(body);
+            return await PostAsync(url, content);
+        }
+
+        /// <summary>
+        /// Converts body object to json and makes POST request to the specified URL.
+        /// </summary>
+        /// <param name="url"></param>
         /// <param name="body">POST object content.</param>
         /// <returns>Response with parsed object in Result</returns>
         public EasyHttpResponse<T> PostJson<T>(string url, object body)
@@ -111,6 +159,20 @@ namespace AndiSoft.EasyHttp
             
             return new EasyHttpResponse<T>(result);
             
+        }
+
+        /// <summary>
+        /// Converts body object to json and makes POST request to the specified URL.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="body">POST object content.</param>
+        /// <returns>Response with parsed object in Result</returns>
+        public async Task<EasyHttpResponse<T>> PostJsonAsync<T>(string url, object body)
+        {
+            var content = body is string ? body.ToString() : JsonConvert.SerializeObject(body);
+            var result = await PostAsync(url, content);
+
+            return new EasyHttpResponse<T>(result);
         }
 
         #endregion
@@ -126,6 +188,18 @@ namespace AndiSoft.EasyHttp
         /// <returns></returns>
         public EasyHttpResponse Put(string url, string body, string contentType = null)
         {
+            return PutAsync(url, body, contentType).Result;
+        }
+
+        /// <summary>
+        /// Makes PUT request to the specified URL.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="body">PUT content.</param>
+        /// <param name="contentType">Content type. Default is 'application/json'.</param>
+        /// <returns></returns>
+        public async Task<EasyHttpResponse> PutAsync(string url, string body, string contentType = null)
+        {
             if (string.IsNullOrWhiteSpace(contentType))
                 contentType = "application/json";
 
@@ -133,9 +207,9 @@ namespace AndiSoft.EasyHttp
             httpContent.Headers.Clear();
             httpContent.Headers.Add("content-type", contentType);
 
-            return new EasyHttpResponse(EasyClient.PutAsync(url, httpContent).GetAwaiter().GetResult());
+            return new EasyHttpResponse(await EasyClient.PutAsync(url, httpContent));
         }
-        
+
         /// <summary>
         /// Converts body object to json and makes PUT request to the specified URL.
         /// </summary>
@@ -152,12 +226,38 @@ namespace AndiSoft.EasyHttp
         /// Converts body object to json and makes PUT request to the specified URL.
         /// </summary>
         /// <param name="url"></param>
+        /// <param name="body">POST content.</param>
+        /// <returns></returns>
+        public async Task<EasyHttpResponse> PutJsonAsync(string url, object body)
+        {
+            var content = body is string ? body.ToString() : JsonConvert.SerializeObject(body);
+            return await PutAsync(url, content);
+        }
+
+        /// <summary>
+        /// Converts body object to json and makes PUT request to the specified URL.
+        /// </summary>
+        /// <param name="url"></param>
         /// <param name="body">PUT content.</param>
         /// <returns>Response with parsed object in Result</returns>
         public EasyHttpResponse<T> PutJson<T>(string url, object body)
         {
             var content = body is string ? body.ToString() : JsonConvert.SerializeObject(body);
             var result = Put(url, content);
+
+            return new EasyHttpResponse<T>(result);
+        }
+
+        /// <summary>
+        /// Converts body object to json and makes PUT request to the specified URL.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="body">PUT content.</param>
+        /// <returns>Response with parsed object in Result</returns>
+        public async Task<EasyHttpResponse<T>> PutJsonAsync<T>(string url, object body)
+        {
+            var content = body is string ? body.ToString() : JsonConvert.SerializeObject(body);
+            var result = await PutAsync(url, content);
 
             return new EasyHttpResponse<T>(result);
         }
@@ -174,6 +274,16 @@ namespace AndiSoft.EasyHttp
         public EasyHttpResponse Delete(string url)
         {
             return new EasyHttpResponse(EasyClient.DeleteAsync(url).GetAwaiter().GetResult());
+        }
+
+        /// <summary>
+        /// Makes DELETE request to the specified URL.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns>HttpResponseMessage</returns>
+        public async Task<EasyHttpResponse> DeleteAsync(string url)
+        {
+            return new EasyHttpResponse(await EasyClient.DeleteAsync(url));
         }
 
         #endregion
